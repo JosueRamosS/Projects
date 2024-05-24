@@ -1,0 +1,590 @@
+#include<iostream>
+#include<fstream>
+#include<string.h>
+#include<stdlib.h>
+
+using namespace std;
+
+string telas[30];
+float descuentos[5];
+
+void guardarTelas(){
+    int a;
+    ifstream telas_data;
+    telas_data.open("telas-data.txt");
+    a = 0;
+    while(getline(telas_data,telas[a]))//guarda cada linea del texto en un array de strings
+        a++;
+    telas_data.close();
+}
+void guardarDescuentos(){
+    int a;
+    string descuentosT[5];
+    ifstream telas_data;
+    telas_data.open("config-tienda.txt");
+    a = 0;
+    while(getline(telas_data,descuentosT[a]))//guarda cada linea del texto en un array de strings
+        a++;
+    telas_data.close();
+    for(int i=0;i<5;i++){
+        descuentos[i]=stof(descuentosT[i]);//stof para convertir string a numeros
+    }
+}
+
+int main(){
+    ofstream boleta;
+    int nroBoleta=1;
+    int opc, opc2, opc3, opc4;
+    int tela;
+    int contT0=0,contT1=0,contT2=0,contT3=0,contT4=0;
+    float metrosT0=0,metrosT1=0,metrosT2=0,metrosT3=0,metrosT4=0;
+    float importeT0=0,importeT1=0,importeT2=0,importeT3=0,importeT4=0;
+
+    float descuento,importeCompra,importePagar,precioTela;
+
+    int metrosTela;
+
+    guardarTelas();
+    guardarDescuentos();
+
+    do{
+        string nombreBoleta = ("boleta_" + to_string(nroBoleta) + ".txt");
+        system("cls");
+        cout<<"\t.:MENU:.";
+        cout<<"\n1) Mantenimiento";
+        cout<<"\n2) Vender";
+        cout<<"\n3) Reportes";
+        cout<<"\n4) Configuracion";
+        cout<<"\n5) Salir";
+        cout<<"\nOpcion: ";
+        cin>>opc;
+        system("cls");
+        switch(opc){
+            case 1:
+                cout<<"\t.:Mantenimiento:.";
+                cout<<"\n1) Consultar tela";
+                cout<<"\n2) Modificar tela";
+                cout<<"\n3) Listar telas";
+                cout<<"\nOpcion: ";
+                cin>>opc2;
+                system("cls");
+                switch(opc2){
+                    case 1:
+                        cout<<"\t.:Consultar tela:.";
+                        cout<<"\n1) TL0";
+                        cout<<"\n2) TL1";
+                        cout<<"\n3) TL2";
+                        cout<<"\n4) TL3";
+                        cout<<"\n5) TL4";
+                        cout<<"\nOpcion: ";
+                        cin>>opc3;
+                        switch(opc3){
+                            case 1:
+                                tela = 0;
+                                cout<<"\nCodigo: "<<telas[tela];
+                                cout<<"\nDescripcion: "<<telas[tela+1];
+                                cout<<"\nMaterial: "<<telas[tela+2];
+                                cout<<"\nAncho: "<<telas[tela+3]<<" cm";
+                                cout<<"\nPeso: "<<telas[tela+4]<<" g/m2";
+                                cout<<"\nPrecio: S/ "<<telas[tela+5];
+                                cout<<"\n\n";
+                                system("pause");
+                                break;
+                            case 2:
+                                tela = 6;
+                                cout<<"\nCodigo: "<<telas[tela];
+                                cout<<"\nDescripcion: "<<telas[tela+1];
+                                cout<<"\nMaterial: "<<telas[tela+2];
+                                cout<<"\nAncho: "<<telas[tela+3]<<" cm";
+                                cout<<"\nPeso: "<<telas[tela+4]<<" g/m2";
+                                cout<<"\nPrecio: S/ "<<telas[tela+5];
+                                cout<<"\n\n";
+                                system("pause");
+                                break;
+                            case 3:
+                                tela = 12;
+                                cout<<"\nCodigo: "<<telas[tela];
+                                cout<<"\nDescripcion: "<<telas[tela+1];
+                                cout<<"\nMaterial: "<<telas[tela+2];
+                                cout<<"\nAncho: "<<telas[tela+3]<<" cm";
+                                cout<<"\nPeso: "<<telas[tela+4]<<" g/m2";
+                                cout<<"\nPrecio: S/ "<<telas[tela+5];
+                                cout<<"\n\n";
+                                system("pause");
+                                break;
+                            case 4:
+                                tela = 18;
+                                cout<<"\nCodigo: "<<telas[tela];
+                                cout<<"\nDescripcion: "<<telas[tela+1];
+                                cout<<"\nMaterial: "<<telas[tela+2];
+                                cout<<"\nAncho: "<<telas[tela+3]<<" cm";
+                                cout<<"\nPeso: "<<telas[tela+4]<<" g/m2";
+                                cout<<"\nPrecio: S/ "<<telas[tela+5];
+                                cout<<"\n\n";
+                                system("pause");
+                                break;
+                            case 5:
+                                tela = 24;
+                                cout<<"\nCodigo: "<<telas[tela];
+                                cout<<"\nDescripcion: "<<telas[tela+1];
+                                cout<<"\nMaterial: "<<telas[tela+2];
+                                cout<<"\nAncho: "<<telas[tela+3]<<" cm";
+                                cout<<"\nPeso: "<<telas[tela+4]<<" g/m2";
+                                cout<<"\nPrecio: S/ "<<telas[tela+5];
+                                cout<<"\n\n";
+                                system("pause");
+                                break;
+                        }
+                        break;
+                    case 2:
+                        cout<<"\t.:Modificar tela:.";
+                        cout<<"\n1) TL0";
+                        cout<<"\n2) TL1";
+                        cout<<"\n3) TL2";
+                        cout<<"\n4) TL3";
+                        cout<<"\n5) TL4";
+                        cout<<"\nOpcion: ";
+                        cin>>opc3;
+                        system("cls");
+                        switch(opc3){
+                            case 1:
+                                tela = 0;
+
+                                do{
+                                    cout<<"\n.:TL0:.";
+                                    cout<<"\n1)Descripcion";
+                                    cout<<"\n2)Material";
+                                    cout<<"\n3)Ancho";
+                                    cout<<"\n4)Peso";
+                                    cout<<"\n5)Precio";
+                                    cout<<"\n6)Salir";
+                                    cout<<"\nOpcion: ";
+                                    cin>>opc4;
+                                    switch(opc4){
+                                        case 1:
+                                            cout<<"\nNueva Descripcion: ";
+                                            fflush(stdin);
+                                            getline(cin,telas[tela+1]);
+                                            break;
+                                        case 2:
+                                            cout<<"\nNuevo Material: ";
+                                            fflush(stdin);
+                                            getline(cin,telas[tela+2]);
+                                            break;
+                                        case 3:
+                                            cout<<"\nNuevo Ancho: ";
+                                            fflush(stdin);
+                                            getline(cin,telas[tela+3]);
+                                            break;
+                                        case 4:
+                                            cout<<"\nNuevo Peso: ";
+                                            fflush(stdin);
+                                            getline(cin,telas[tela+4]);
+                                            break;
+                                        case 5:
+                                            cout<<"\nNuevo Precio: ";
+                                            fflush(stdin);
+                                            getline(cin,telas[tela+5]);
+                                            break;
+                                    }
+                                    system("cls");
+                                }while(opc4 != 6);
+                                break;
+                            case 2:
+                                tela = 6;
+
+                                do{
+                                    cout<<"\n.:TL1:.";
+                                    cout<<"\n1)Descripcion";
+                                    cout<<"\n2)Material";
+                                    cout<<"\n3)Ancho";
+                                    cout<<"\n4)Peso";
+                                    cout<<"\n5)Precio";
+                                    cout<<"\n6)Salir";
+                                    cout<<"\nOpcion: ";
+                                    cin>>opc4;
+                                    switch(opc4){
+                                        case 1:
+                                            cout<<"\nNueva Descripcion: ";
+                                            fflush(stdin);
+                                            getline(cin,telas[tela+1]);
+                                            break;
+                                        case 2:
+                                            cout<<"\nNuevo Material: ";
+                                            fflush(stdin);
+                                            getline(cin,telas[tela+2]);
+                                            break;
+                                        case 3:
+                                            cout<<"\nNuevo Ancho: ";
+                                            fflush(stdin);
+                                            getline(cin,telas[tela+3]);
+                                            break;
+                                        case 4:
+                                            cout<<"\nNuevo Peso: ";
+                                            fflush(stdin);
+                                            getline(cin,telas[tela+4]);
+                                            break;
+                                        case 5:
+                                            cout<<"\nNuevo Precio: ";
+                                            fflush(stdin);
+                                            getline(cin,telas[tela+5]);
+                                            break;
+                                    }
+                                    system("cls");
+                                }while(opc4 != 6);
+                                break;
+                            case 3:
+                                tela = 12;
+
+                                do{
+                                    cout<<"\n.:TL2:.";
+                                    cout<<"\n1)Descripcion";
+                                    cout<<"\n2)Material";
+                                    cout<<"\n3)Ancho";
+                                    cout<<"\n4)Peso";
+                                    cout<<"\n5)Precio";
+                                    cout<<"\n6)Salir";
+                                    cout<<"\nOpcion: ";
+                                    cin>>opc4;
+                                    switch(opc4){
+                                        case 1:
+                                            cout<<"\nNueva Descripcion: ";
+                                            fflush(stdin);
+                                            getline(cin,telas[tela+1]);
+                                            break;
+                                        case 2:
+                                            cout<<"\nNuevo Material: ";
+                                            fflush(stdin);
+                                            getline(cin,telas[tela+2]);
+                                            break;
+                                        case 3:
+                                            cout<<"\nNuevo Ancho: ";
+                                            fflush(stdin);
+                                            getline(cin,telas[tela+3]);
+                                            break;
+                                        case 4:
+                                            cout<<"\nNuevo Peso: ";
+                                            fflush(stdin);
+                                            getline(cin,telas[tela+4]);
+                                            break;
+                                        case 5:
+                                            cout<<"\nNuevo Precio: ";
+                                            fflush(stdin);
+                                            getline(cin,telas[tela+5]);
+                                            break;
+                                    }
+                                    system("cls");
+                                }while(opc4 != 6);
+                                break;
+                            case 4:
+                                tela = 18;
+                                do{
+                                    cout<<"\n.:TL3:.";
+                                    cout<<"\n1)Descripcion";
+                                    cout<<"\n2)Material";
+                                    cout<<"\n3)Ancho";
+                                    cout<<"\n4)Peso";
+                                    cout<<"\n5)Precio";
+                                    cout<<"\n6)Salir";
+                                    cout<<"\nOpcion: ";
+                                    cin>>opc4;
+                                    switch(opc4){
+                                        case 1:
+                                            cout<<"\nNueva Descripcion: ";
+                                            fflush(stdin);
+                                            getline(cin,telas[tela+1]);
+                                            break;
+                                        case 2:
+                                            cout<<"\nNuevo Material: ";
+                                            fflush(stdin);
+                                            getline(cin,telas[tela+2]);
+                                            break;
+                                        case 3:
+                                            cout<<"\nNuevo Ancho: ";
+                                            fflush(stdin);
+                                            getline(cin,telas[tela+3]);
+                                            break;
+                                        case 4:
+                                            cout<<"\nNuevo Peso: ";
+                                            fflush(stdin);
+                                            getline(cin,telas[tela+4]);
+                                            break;
+                                        case 5:
+                                            cout<<"\nNuevo Precio: ";
+                                            fflush(stdin);
+                                            getline(cin,telas[tela+5]);
+                                            break;
+                                    }
+                                    system("cls");
+                                }while(opc4 != 6);
+                                break;
+                            case 5:
+                                tela = 24;
+                                do{
+                                    cout<<"\n.:TL4:.";
+                                    cout<<"\n1)Descripcion";
+                                    cout<<"\n2)Material";
+                                    cout<<"\n3)Ancho";
+                                    cout<<"\n4)Peso";
+                                    cout<<"\n5)Precio";
+                                    cout<<"\n6)Salir";
+                                    cout<<"\nOpcion: ";
+                                    cin>>opc4;
+                                    switch(opc4){
+                                        case 1:
+                                            cout<<"\nNueva Descripcion: ";
+                                            fflush(stdin);
+                                            getline(cin,telas[tela+1]);
+                                            break;
+                                        case 2:
+                                            cout<<"\nNuevo Material: ";
+                                            fflush(stdin);
+                                            getline(cin,telas[tela+2]);
+                                            break;
+                                        case 3:
+                                            cout<<"\nNuevo Ancho: ";
+                                            fflush(stdin);
+                                            getline(cin,telas[tela+3]);
+                                            break;
+                                        case 4:
+                                            cout<<"\nNuevo Peso: ";
+                                            fflush(stdin);
+                                            getline(cin,telas[tela+4]);
+                                            break;
+                                        case 5:
+                                            cout<<"\nNuevo Precio: ";
+                                            fflush(stdin);
+                                            getline(cin,telas[tela+5]);
+                                            break;
+                                    }
+                                    system("cls");
+                                }while(opc4 != 6);
+                                break;
+                        }
+                        break;
+                    case 3:
+                        cout<<"\t.:Listar telas:.\n";
+                        for(int i = 0;i<30;i = i+6){
+                            cout<<"\nCodigo: "<<telas[i];
+                            cout<<"\nDescripcion: "<<telas[i+1];
+                            cout<<"\nMaterial: "<<telas[i+2];
+                            cout<<"\nAncho: "<<telas[i+3]<<" cm";
+                            cout<<"\nPeso: "<<telas[i+4]<<" g/m2";
+                            cout<<"\nPrecio: S/ "<<telas[i+5];
+                            cout<<"\n\n";
+                        }
+                        system("pause");
+                        break;
+                }
+                break;
+            case 2:
+
+                cout<<"\t.:Vender:.";
+                cout<<"\nCodigo de tela: ";
+                cout<<"\n1) TL0";
+                cout<<"\n2) TL1";
+                cout<<"\n3) TL2";
+                cout<<"\n4) TL3";
+                cout<<"\n5) TL4";
+                cout<<"\nOpcion: ";
+                cin>>opc2;
+                cout<<"\nMetros de tela: ";
+                cin>>metrosTela;
+
+                if(opc2 == 1){
+                    tela = 0;
+                    contT0++;
+                    metrosT0 = metrosT0 + metrosTela;}
+                else if(opc2 == 2){
+                    tela = 6;
+                    contT1++;
+                    metrosT1 = metrosT1 + metrosTela;}
+                else if(opc2 == 3){
+                    tela = 12;
+                    contT2++;
+                    metrosT2 = metrosT2 + metrosTela;}
+                else if(opc2 == 4){
+                    tela = 18;
+                    contT3++;
+                    metrosT3 = metrosT3 + metrosTela;}
+                else if(opc2 == 5){
+                    tela = 24;
+                    contT4++;
+                    metrosT4 = metrosT4 + metrosTela;}
+
+                if(metrosTela>=1 && metrosTela<=5)
+                    descuento = descuentos[0];
+                else if(metrosTela>=6 && metrosTela<=10)
+                    descuento = descuentos[1];
+                else if(metrosTela>=11 && metrosTela<=15)
+                    descuento = descuentos[2];
+                else if(metrosTela>=16)
+                    descuento = descuentos[3];
+
+                precioTela = stof(telas[tela+5]);
+                importeCompra = metrosTela * precioTela;
+                importePagar = importeCompra - importeCompra *  descuento/100;
+
+                boleta.open(nombreBoleta);
+                boleta<<"BOLETA DE VENTA: "<<nroBoleta<<"\n";
+                boleta<<"Tela: "<<telas[tela+1]<<"\n";
+                boleta<<"Precio: S/ "<<telas[tela+5]<<"\n";
+                boleta<<"Cantidad: "<<metrosTela<<"\n";
+                boleta<<"Importe compra: S/ "<<importeCompra<<"\n";
+                boleta<<"Descuento: S/ "<<importeCompra * descuento/100<<"\n";
+                boleta<<"Importe pagar: S/ "<<importePagar<<"\n";
+                boleta.close();
+                nroBoleta++;
+                if(opc2 == 1)
+                    importeT0=importeT0+importePagar;
+                else if(opc2 == 2)
+                    importeT1=importeT1+importePagar;
+                else if(opc2 == 3)
+                    importeT2=importeT2+importePagar;
+                else if(opc2 == 4)
+                    importeT3=importeT3+importePagar;
+                else if(opc2 == 5)
+                    importeT4=importeT4+importePagar;
+
+                break;
+                system("pause");
+            case 3:
+
+                cout<<"\t.:Reportes:.";
+                cout<<"\n1) Ventas por tela";
+                cout<<"\n2) Telas con venta optima";
+                cout<<"\nOpcion: ";
+                cin>>opc2;
+                system("cls");
+                switch(opc2){
+                    case 1:
+                        cout<<"\t.:Ventas por tela:.";
+                        cout<<"\n\nCodigo: TL0";
+                        cout<<"\nDescripcion: "<<telas[1]<<" cm";
+                        cout<<"\nCantidad total de ventas: "<<contT0;
+                        cout<<"\nCantidad total de metros vendidos : "<<metrosT0;
+                        cout<<"\nImporte total acumulado: S/ "<<importeT0;
+                        cout<<"\n\nCodigo: TL1";
+                        cout<<"\nDescripcion: "<<telas[7]<<" cm";
+                        cout<<"\nCantidad total de ventas: "<<contT1;
+                        cout<<"\nCantidad total de metros vendidos : "<<metrosT1;
+                        cout<<"\nImporte total acumulado: S/ "<<importeT1;
+                        cout<<"\n\nCodigo: TL2";
+                        cout<<"\nDescripcion: "<<telas[13]<<" cm";
+                        cout<<"\nCantidad total de ventas: "<<contT2;
+                        cout<<"\nCantidad total de metros vendidos : "<<metrosT2;
+                        cout<<"\nImporte total acumulado: S/ "<<importeT2;
+                        cout<<"\n\nCodigo: TL3";
+                        cout<<"\nDescripcion: "<<telas[19]<<" cm";
+                        cout<<"\nCantidad total de ventas: "<<contT3;
+                        cout<<"\nCantidad total de metros vendidos : "<<metrosT3;
+                        cout<<"\nImporte total acumulado: S/ "<<importeT3;
+                        cout<<"\n\nCodigo: TL4";
+                        cout<<"\nDescripcion: "<<telas[25]<<" cm";
+                        cout<<"\nCantidad total de ventas: "<<contT4;
+                        cout<<"\nCantidad total de metros vendidos : "<<metrosT4;
+                        cout<<"\nImporte total acumulado: S/ "<<importeT4;
+                        system("pause");
+                        break;
+                    case 2:
+                        cout<<"\t.:Telas con venta optima:.";
+                        if(metrosT0>=descuentos[4]){//descuentos 4 es la cantidad optima
+                            cout<<"\n\nCodigo: TL0";
+                            cout<<"\nDescripcion: "<<telas[1]<<" cm";
+                            cout<<"\nMetros vendidos: ";
+                            if(metrosT0==descuentos[4])
+                                cout<<metrosT0<<"(igual a la cantidad optima)";
+                            else if(metrosT0>descuentos[4])
+                                cout<<metrosT0<<"("<<metrosT0-descuentos[4]<<" mas que la cantidad optima)";
+                        }
+
+                        if(metrosT1>=descuentos[4]){//descuentos 4 es la cantidad optima
+                            cout<<"\n\nCodigo: TL1";
+                            cout<<"\nDescripcion: "<<telas[7]<<" cm";
+                            cout<<"\nMetros vendidos: ";
+                            if(metrosT1==descuentos[4])
+                                cout<<metrosT1<<"(igual a la cantidad optima)";
+                            else if(metrosT1>descuentos[4])
+                                cout<<metrosT1<<"("<<metrosT1-descuentos[4]<<" mas que la cantidad optima)";
+                        }
+
+                        if(metrosT2>=descuentos[4]){//descuentos 4 es la cantidad optima
+                            cout<<"\n\nCodigo: TL2";
+                            cout<<"\nDescripcion: "<<telas[13]<<" cm";
+                            cout<<"\nMetros vendidos: ";
+                            if(metrosT2==descuentos[4])
+                                cout<<metrosT2<<"(igual a la cantidad optima)";
+                            else if(metrosT2>descuentos[4])
+                                cout<<metrosT2<<"("<<metrosT2-descuentos[4]<<" mas que la cantidad optima)";
+                        }
+
+                        if(metrosT3>=descuentos[4]){//descuentos 4 es la cantidad optima
+                            cout<<"\n\nCodigo: TL3";
+                            cout<<"\nDescripcion: "<<telas[19]<<" cm";
+                            cout<<"\nMetros vendidos: ";
+                            if(metrosT3==descuentos[4])
+                                cout<<metrosT3<<"(igual a la cantidad optima)";
+                            else if(metrosT3>descuentos[4])
+                                cout<<metrosT3<<"("<<metrosT3-descuentos[4]<<" mas que la cantidad optima)";
+                        }
+
+                        if(metrosT4>=descuentos[4]){//descuentos 4 es la cantidad optima
+                            cout<<"\n\nCodigo: TL4";
+                            cout<<"\nDescripcion: "<<telas[25]<<" cm";
+                            cout<<"\nMetros vendidos: ";
+                            if(metrosT4==descuentos[4])
+                                cout<<metrosT4<<"(igual a la cantidad optima)";
+                            else if(metrosT4>descuentos[4])
+                                cout<<metrosT4<<"("<<metrosT4-descuentos[4]<<" mas que la cantidad optima)";
+                        }
+
+                        break;
+                }
+                break;
+
+            case 4:
+                cout<<"\t.:Configuracion:.";
+                cout<<"\n1) Configurar descuentos";
+                cout<<"\n2) Configurar cantidad optima de metros vendidos";
+                cout<<"\nOpcion: ";
+                cin>>opc2;
+                system("cls");
+                switch(opc2){
+                    case 1:
+                        cout<<"\t.:Configuracion descuentos:.";
+                        cout<<"\n1) De 1 a 5 metros: %"<<descuentos[0];
+                        cout<<"\n2) De 6 a 10 metros: %"<<descuentos[1];
+                        cout<<"\n3) De 11 a 15 metros: %"<<descuentos[2];
+                        cout<<"\n4) Mas de 15 metros: %"<<descuentos[3];
+                        cout<<"\nOpcion: ";
+                        cin>>opc3;
+
+                        if(opc3==1){
+                            cout<<"\nCantidad a configurar del descuento de 1 a 5 metros: ";
+                            cin>>descuentos[0];
+                        }
+                        else if(opc3==2){
+                            cout<<"\nCantidad a configurar del descuento de 6 a 10 metros: ";
+                            cin>>descuentos[1];
+                        }
+                        else if(opc3==3){
+                            cout<<"\nCantidad a configurar del descuento de 11 a 15 metros: ";
+                            cin>>descuentos[2];
+                        }
+                        else if(opc3==4){
+                            cout<<"\nCantidad a configurar del descuento mas de 15 metros: ";
+                            cin>>descuentos[3];
+                        }
+
+                        break;
+                    case 2:
+                        cout<<"\t.:Configurar cantidad optima de metros vendidos:.";
+                        cout<<"\nCantidad a configurar: ";
+                        cin>>descuentos[4];
+                        system("pause");
+                        break;
+                }
+                break;
+        }
+    }while(opc != 5);
+}
